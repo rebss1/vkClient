@@ -13,15 +13,20 @@ typealias SK = StorageKeys
 enum StorageKeys: String {
     case access
     case refresh
+    case deviceId
 }
 
-final class AuthTokenStorage {
+final class Storage {
     var accessToken: String? {
         KeychainWrapper.standard.string(forKey: SK.access.rawValue)
     }
     
     var refreshToken: String? {
         KeychainWrapper.standard.string(forKey: SK.refresh.rawValue)
+    }
+    
+    var deviceId: String? {
+        KeychainWrapper.standard.string(forKey: SK.deviceId.rawValue)
     }
     
     func store(token: String?, for key: SK) {

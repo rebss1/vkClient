@@ -36,6 +36,5 @@ extension WebPresenterImpl: WebPresenter {
         } else {
             return nil
         }
-
     }
 }

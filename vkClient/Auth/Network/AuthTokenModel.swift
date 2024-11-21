@@ -17,14 +17,14 @@ struct AuthTokenModel: Codable {
     let state: String?
     let scope: String?
 
-    enum CodingKeys: String, CodingKey {
-        case refreshToken = "refresh_token"
-        case accessToken = "access_token"
-        case idToken = "id_token"
-        case tokenType = "token_type"
-        case expiresIn = "expires_in"
-        case userID = "user_id"
-        case state
-        case scope
-    }
+//    enum CodingKeys: String, CodingKey {
+//        case refreshToken = "refresh_token"
+//        case accessToken = "access_token"
+//        case idToken = "id_token"
+//        case tokenType = "token_type"
+//        case expiresIn = "expires_in"
+//        case userID = "user_id"
+//        case state
+//        case scope
+//    }
 }

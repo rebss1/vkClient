@@ -11,6 +11,7 @@
 		94B611122CEA140B0017621A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 94B611112CEA140B0017621A /* SnapKit */; };
 		94B6112A2CEA406F0017621A /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 94B611292CEA406F0017621A /* ProgressHUD */; };
 		94B6112F2CEA430B0017621A /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 94B6112E2CEA430B0017621A /* SwiftKeychainWrapper */; };
+		94B611772CEBD24E0017621A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 94B611762CEBD24E0017621A /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 				94B6110F2CEA13E40017621A /* Alamofire in Frameworks */,
 				94B6112F2CEA430B0017621A /* SwiftKeychainWrapper in Frameworks */,
 				94B611122CEA140B0017621A /* SnapKit in Frameworks */,
+				94B611772CEBD24E0017621A /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +95,7 @@
 				94B611112CEA140B0017621A /* SnapKit */,
 				94B611292CEA406F0017621A /* ProgressHUD */,
 				94B6112E2CEA430B0017621A /* SwiftKeychainWrapper */,
+				94B611762CEBD24E0017621A /* Kingfisher */,
 			);
 			productName = vkClient;
 			productReference = 94B60FC32CE9D94A0017621A /* vkClient.app */;
@@ -127,6 +130,7 @@
 				94B611102CEA140B0017621A /* XCRemoteSwiftPackageReference "SnapKit" */,
 				94B611282CEA406F0017621A /* XCRemoteSwiftPackageReference "ProgressHUD" */,
 				94B6112D2CEA430B0017621A /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
+				94B611752CEBD24E0017621A /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 94B60FC42CE9D94A0017621A /* Products */;
@@ -388,6 +392,14 @@
 				minimumVersion = 4.0.1;
 			};
 		};
+		94B611752CEBD24E0017621A /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -410,6 +422,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 94B6112D2CEA430B0017621A /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
 			productName = SwiftKeychainWrapper;
+		};
+		94B611762CEBD24E0017621A /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 94B611752CEBD24E0017621A /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

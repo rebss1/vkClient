@@ -11,7 +11,7 @@ final class OnboardingViewController: UIViewController {
     
     // MARK: - Private Properties
 
-    private let storage = AuthTokenStorage()
+    private let storage = Storage()
     private let service = AuthService()
     
     // MARK: - View Life Cycle
@@ -24,10 +24,9 @@ final class OnboardingViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if let token = storage.accessToken {
-//            fetchProfile(token)
-            print(token)
+            refreshAccessToken()
         } else {
-            switchToAuthViewController()
+            switchToAuth()
         }
     }
 }
@@ -62,7 +61,8 @@ private extension OnboardingViewController {
                         let refreshToken = tokenModel.refreshToken
                         self?.storage.store(token: accessToken, for: .access)
                         self?.storage.store(token: refreshToken, for: .refresh)
-                        self?.switchToTabBarController()
+                        self?.storage.store(token: deviceId, for: .deviceId)
+                        self?.switchToFeed()
                     case .failure:
                         break
                     }
@@ -71,7 +71,30 @@ private extension OnboardingViewController {
         }
     }
     
-    func switchToAuthViewController() {
+    func refreshAccessToken() {
+        guard
+            let refreshToken = storage.refreshToken,
+            let deviceId = storage.deviceId
+        else { return }
+        service.refreshAccessToken(with: refreshToken,
+                                   deviceId: deviceId) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let tokenModel):
+                    let accessToken = tokenModel.accessToken
+                    let refreshToken = tokenModel.refreshToken
+                    self?.storage.store(token: accessToken, for: .access)
+                    self?.storage.store(token: refreshToken, for: .refresh)
+                    self?.storage.store(token: deviceId, for: .deviceId)
+                    self?.switchToFeed()
+                case .failure:
+                    break
+                }
+            }
+        }
+    }
+    
+    func switchToAuth() {
         let authViewController = AuthViewController()
         authViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: authViewController)
@@ -80,13 +103,14 @@ private extension OnboardingViewController {
         present(navigationController, animated: true)
     }
     
-    func switchToTabBarController() {
-//        guard let window = UIApplication.shared.windows.first else {
-//            assertionFailure("Invalid window configuration")
-//            return
-//        }
-//        let tabBarController = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "TabBarViewController")
-//        window.rootViewController = tabBarController
+    func switchToFeed() {
+        let feedPresenter = FeedPresenterImpl()
+        let feedViewController = FeedViewController(presenter: feedPresenter)
+        feedPresenter.view = feedViewController
+        let navigationController = UINavigationController(rootViewController: feedViewController)
+        navigationController.navigationBar.topItem?.title = ""
+        navigationController.modalPresentationStyle = .fullScreen
+        present(navigationController, animated: true)
     }
     
     func setUp() {

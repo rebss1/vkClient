@@ -26,13 +26,51 @@ final class AuthService {
                       "device_id" : deviceId,
                       "state": "abracadabracode"]
         AF.request(AC.oauthUrl,
-                   method: .post, parameters: params)
+                   method: .post,
+                   parameters: params)
         .response { response in
             switch response.result {
             case .success(let data):
                 guard let data = data else { return }
                 do {
-                    let tokenModel = try JSONDecoder().decode(
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let tokenModel = try decoder.decode(
+                        AuthTokenModel.self,
+                        from: data
+                    )
+                    completion(.success(tokenModel))
+                    print(tokenModel)
+                } catch {
+                    completion(.failure(error))
+                    print(error)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func refreshAccessToken(with refreshToken: String,
+                            deviceId: String,
+                            completion: @escaping (Result<AuthTokenModel, Error>) -> Void) {
+        let queryItems = ["grant_type" : "refresh_token",
+                          "client_id" : AC.clientId,
+                          "device_id" : deviceId]
+        let bodyParams = ["refresh_token" : refreshToken]
+        
+        AF.request(AC.oauthUrl,
+                   method: .post,
+                   parameters: bodyParams)
+        .querryParameters(queryItems)
+        .response { response in
+            switch response.result {
+            case .success(let data):
+                guard let data = data else { return }
+                do {
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let tokenModel = try decoder.decode(
                         AuthTokenModel.self,
                         from: data
                     )
