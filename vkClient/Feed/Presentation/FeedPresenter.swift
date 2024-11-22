@@ -83,11 +83,14 @@ extension FeedPresenterImpl: FeedPresenter {
         state = .loading
     }
     
-    func openDetails(with cellModel: FeedCellModel) {
-//        let viewController = DetailViewController(presenter: self,
-//                                                  cellModel: cellModel)
-//        viewController.modalPresentationStyle = .pageSheet
-//        view?.present(viewController)
+    func openDetails(with model: FeedCellModel) {
+        let presenter = DetailsPresenterImpl(model: model)
+        let viewController = DetailsViewController(presenter: presenter)
+        presenter.view = viewController
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.navigationBar.topItem?.title = ""
+        navigationController.modalPresentationStyle = .fullScreen
+        view?.present(navigationController)
     }
 }
 
@@ -142,8 +145,10 @@ private extension FeedPresenterImpl {
     }
     
     func switchToOnboarding() {
-        let onboardingViewController = OnboardingViewController()
-        let navigationController = UINavigationController(rootViewController: onboardingViewController)
+        let presenter = OnboardingPresenterImpl()
+        let viewController = OnboardingViewController(presenter: presenter)
+        presenter.view = viewController
+        let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.navigationBar.topItem?.title = ""
         navigationController.modalPresentationStyle = .fullScreen
         view?.present(navigationController)

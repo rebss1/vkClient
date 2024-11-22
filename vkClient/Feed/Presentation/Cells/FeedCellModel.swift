@@ -13,17 +13,29 @@ struct FeedCellModel {
     let date: String
     let text: String
     let photos: [String]
+    var isLiked: Bool
+    let canLike: Bool
+    let ownerId: Int
+    let postId: Int
     
     init(coverImageUrl: String,
          name: String,
          date: String,
          text: String,
-         photos: [String]) {
+         photos: [String],
+         isLiked: Bool,
+         canLike: Bool,
+         ownerId: Int,
+         postId: Int) {
         self.coverImageUrl = coverImageUrl
         self.name = name
         self.date = date
         self.text = text
         self.photos = photos
+        self.isLiked = isLiked
+        self.canLike = canLike
+        self.ownerId = ownerId
+        self.postId = postId
     }
     
     init(from model: FeedResponseModel, with item: Item) {
@@ -56,5 +68,13 @@ struct FeedCellModel {
             }
         }
         self.photos = photos
+        self.isLiked = item.isFavorite
+        if let likes = item.likes {
+            self.canLike = likes.canLike == 1 ? true : false
+        } else {
+            self.canLike = false
+        }
+        self.ownerId = item.ownerId
+        self.postId = item.postId
     }
 }

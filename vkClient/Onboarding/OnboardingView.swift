@@ -6,13 +6,41 @@
 //
 
 import UIKit
+import SnapKit
+
+protocol OnboardingView: AnyObject, ErrorView, LoadingView, AuthViewDelegate {
+    func present(_ viewController: UIViewController)
+}
 
 final class OnboardingViewController: UIViewController {
     
+    // MARK: - Public Properties
+
+    lazy var activityIndicator = UIActivityIndicatorView()
+    
     // MARK: - Private Properties
 
-    private let storage = Storage()
-    private let service = AuthService()
+    private let presenter: OnboardingPresenter
+    
+    // MARK: - UI
+
+    private let imageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "logo"))
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.masksToBounds = true
+        return imageView
+    }()
+    
+    // MARK: - Initialization
+
+    init(presenter: OnboardingPresenter) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - View Life Cycle
 
@@ -23,97 +51,36 @@ final class OnboardingViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let token = storage.accessToken {
-            refreshAccessToken()
-        } else {
-            switchToAuth()
-        }
+        presenter.viewDidApper()
     }
 }
 
-// MARK: - AuthViewDelegate
+// MARK: - OnboardingView
 
-extension OnboardingViewController: AuthViewDelegate {
+extension OnboardingViewController: OnboardingView {
     
-    func didAuthetificate(_ vc: AuthViewController, didAuthenticateWithQueryItems items: [URLQueryItem]) {
-        vc.dismiss(animated: true)
-        fetchAccessToken(with: items)
+    func didAuthetificate(_ vc: AuthViewController,
+                          didAuthenticateWithQueryItems items: [URLQueryItem]) {
+        presenter.didAuthetificate(vc, didAuthenticateWithQueryItems: items)
+    }
+    
+    func present(_ viewController: UIViewController) {
+        present(viewController, animated: true)
     }
 }
 
 // MARK: - Private Methods
 
 private extension OnboardingViewController {
-    
-    func fetchAccessToken(with items: [URLQueryItem]) {
-        if let deviceId = items.first(where: { $0.name == "device_id" }),
-           let code = items.first(where: { $0.name == "code" }) {
-            guard
-                let code = code.value,
-                let deviceId = deviceId.value
-            else { return }
-            service.fetchAccessToken(with: code,
-                                     deviceId: deviceId) { [weak self] result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let tokenModel):
-                        let accessToken = tokenModel.accessToken
-                        let refreshToken = tokenModel.refreshToken
-                        self?.storage.store(token: accessToken, for: .access)
-                        self?.storage.store(token: refreshToken, for: .refresh)
-                        self?.storage.store(token: deviceId, for: .deviceId)
-                        self?.switchToFeed()
-                    case .failure:
-                        break
-                    }
-                }
-            }
-        }
-    }
-    
-    func refreshAccessToken() {
-        guard
-            let refreshToken = storage.refreshToken,
-            let deviceId = storage.deviceId
-        else { return }
-        service.refreshAccessToken(with: refreshToken,
-                                   deviceId: deviceId) { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let tokenModel):
-                    let accessToken = tokenModel.accessToken
-                    let refreshToken = tokenModel.refreshToken
-                    self?.storage.store(token: accessToken, for: .access)
-                    self?.storage.store(token: refreshToken, for: .refresh)
-                    self?.storage.store(token: deviceId, for: .deviceId)
-                    self?.switchToFeed()
-                case .failure:
-                    break
-                }
-            }
-        }
-    }
-    
-    func switchToAuth() {
-        let authViewController = AuthViewController()
-        authViewController.delegate = self
-        let navigationController = UINavigationController(rootViewController: authViewController)
-        navigationController.navigationBar.topItem?.title = ""
-        navigationController.modalPresentationStyle = .fullScreen
-        present(navigationController, animated: true)
-    }
-    
-    func switchToFeed() {
-        let feedPresenter = FeedPresenterImpl()
-        let feedViewController = FeedViewController(presenter: feedPresenter)
-        feedPresenter.view = feedViewController
-        let navigationController = UINavigationController(rootViewController: feedViewController)
-        navigationController.navigationBar.topItem?.title = ""
-        navigationController.modalPresentationStyle = .fullScreen
-        present(navigationController, animated: true)
-    }
-    
+
     func setUp() {
-        view.backgroundColor = .red
+        view.backgroundColor = .white
+        
+        view.addSubview(imageView)
+        
+        imageView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.equalTo(150)
+        }
     }
 }

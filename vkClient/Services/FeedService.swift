@@ -13,7 +13,7 @@ final class FeedService {
     func fetchFeed(with accessToken: String,
                    startFrom: String,
                    completion: @escaping (Result<FeedResponseModel, Error>) -> Void) {
-        var params = ["v" : "5.131",
+        var params = ["v" : "5.199",
                       "access_token" : accessToken,
                       "filters" : "post",
                       "count" : "10"]
@@ -21,7 +21,7 @@ final class FeedService {
             params.updateValue(startFrom, forKey: "start_from")
         }
         
-        AF.request(AC.feedUrl,
+        AF.request(FC.feedUrl,
                    method: .get)
         .querryParameters(params)
         .response { response in
@@ -34,19 +34,17 @@ final class FeedService {
                     if let jsonString = String(data: data, encoding: .utf8) {
                         print(jsonString)
                     }
-
+                    
                     let feedModel = try decoder.decode(
                         FeedResponseModel.self,
                         from: data
                     )
                     completion(.success(feedModel))
-                    print(feedModel)
                 } catch {
                     completion(.failure(error))
-                    print(error)
                 }
             case .failure(let error):
-                print(error)
+                completion(.failure(error))
             }
         }
     }
@@ -57,7 +55,7 @@ final class FeedService {
         let headers = HTTPHeaders(
             dictionaryLiteral: ("Authorization", "Bearer \(accessToken)"))
         
-        AF.request(AC.logoutUrl,
+        AF.request(FC.logoutUrl,
                    method: .get,
                    headers: headers)
         .querryParameters(params)

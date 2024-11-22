@@ -13,6 +13,8 @@ struct Item: Decodable {
     let type: String
     let date: TimeInterval
     let attachments: [Attachment]?
+    let isFavorite: Bool
+    let id: Int
     let likes: Likes?
     let ownerId: Int
     let postId: Int

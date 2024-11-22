@@ -67,7 +67,7 @@ private extension FeedCell {
     
     func setUp() {
         contentView.layer.cornerRadius = 15
-        contentView.backgroundColor = .lightGray
+        contentView.backgroundColor = .customBlue
         
         [coverImageView, nameLabel, dateLabel].forEach { view in
             contentView.addSubview(view)

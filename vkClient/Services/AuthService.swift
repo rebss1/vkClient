@@ -40,13 +40,11 @@ final class AuthService {
                         from: data
                     )
                     completion(.success(tokenModel))
-                    print(tokenModel)
                 } catch {
                     completion(.failure(error))
-                    print(error)
                 }
             case .failure(let error):
-                print(error)
+                completion(.failure(error))
             }
         }
     }
@@ -75,13 +73,11 @@ final class AuthService {
                         from: data
                     )
                     completion(.success(tokenModel))
-                    print(tokenModel)
                 } catch {
                     completion(.failure(error))
-                    print(error)
                 }
             case .failure(let error):
-                print(error)
+                completion(.failure(error))
             }
         }
     }

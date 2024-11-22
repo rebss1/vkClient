@@ -19,10 +19,17 @@ final class AuthViewController: UIViewController {
     weak var delegate: AuthViewDelegate?
     
     // MARK: - UI
+    
+    private let imageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "logo"))
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.masksToBounds = true
+        return imageView
+    }()
 
     private let authButton: UIButton = {
         let button = UIButton()
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = 15
         button.setTitle("Login", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .black
@@ -66,13 +73,20 @@ private extension AuthViewController {
     }
     
     func setUp() {
+        view.addSubview(imageView)
         view.addSubview(authButton)
         view.backgroundColor = .white
         
-        authButton.snp.makeConstraints { make in
+        imageView.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.width.equalTo(150)
-            make.height.equalTo(80)
+        }
+        
+        authButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(20)
+            make.width.equalTo(190)
+            make.height.equalTo(60)
         }
     }
 }
