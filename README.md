@@ -20,6 +20,6 @@
 ## 🖼️ Запись экрана
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-  <img src="[https://www.kidjuniper.ru/dir1.png](https://www.loom.com/share/e25c08f0f7e64ed49302a1f82bd58493?sid=85e80e6f-79cf-4481-9faa-7a6f7d04171e)" alt="Screencast" style="width: 130px; height: auto;"/>
+  <img src="https://www.loom.com/share/e25c08f0f7e64ed49302a1f82bd58493?sid=85e80e6f-79cf-4481-9faa-7a6f7d04171e" alt="Screencast" style="width: 130px; height: auto;"/>
 </div>
 
