@@ -6,6 +6,14 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		94B6110F2CEA13E40017621A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 94B6110E2CEA13E40017621A /* Alamofire */; };
+		94B611122CEA140B0017621A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 94B611112CEA140B0017621A /* SnapKit */; };
+		94B6112A2CEA406F0017621A /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 94B611292CEA406F0017621A /* ProgressHUD */; };
+		94B6112F2CEA430B0017621A /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 94B6112E2CEA430B0017621A /* SwiftKeychainWrapper */; };
+		94B611772CEBD24E0017621A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 94B611762CEBD24E0017621A /* Kingfisher */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		94B60FC32CE9D94A0017621A /* vkClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vkClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +44,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94B6112A2CEA406F0017621A /* ProgressHUD in Frameworks */,
+				94B6110F2CEA13E40017621A /* Alamofire in Frameworks */,
+				94B6112F2CEA430B0017621A /* SwiftKeychainWrapper in Frameworks */,
+				94B611122CEA140B0017621A /* SnapKit in Frameworks */,
+				94B611772CEBD24E0017621A /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +91,11 @@
 			);
 			name = vkClient;
 			packageProductDependencies = (
+				94B6110E2CEA13E40017621A /* Alamofire */,
+				94B611112CEA140B0017621A /* SnapKit */,
+				94B611292CEA406F0017621A /* ProgressHUD */,
+				94B6112E2CEA430B0017621A /* SwiftKeychainWrapper */,
+				94B611762CEBD24E0017621A /* Kingfisher */,
 			);
 			productName = vkClient;
 			productReference = 94B60FC32CE9D94A0017621A /* vkClient.app */;
@@ -107,6 +125,13 @@
 			);
 			mainGroup = 94B60FBA2CE9D94A0017621A;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				94B6110D2CEA13E40017621A /* XCRemoteSwiftPackageReference "Alamofire" */,
+				94B611102CEA140B0017621A /* XCRemoteSwiftPackageReference "SnapKit" */,
+				94B611282CEA406F0017621A /* XCRemoteSwiftPackageReference "ProgressHUD" */,
+				94B6112D2CEA430B0017621A /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
+				94B611752CEBD24E0017621A /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 94B60FC42CE9D94A0017621A /* Products */;
 			projectDirPath = "";
@@ -143,13 +168,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = vkClient/vkClient.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = vkClient/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -170,13 +195,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = vkClient/vkClient.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = vkClient/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -333,6 +358,77 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		94B6110D2CEA13E40017621A /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.1;
+			};
+		};
+		94B611102CEA140B0017621A /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		94B611282CEA406F0017621A /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/relatedcode/ProgressHUD";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.1.3;
+			};
+		};
+		94B6112D2CEA430B0017621A /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.1;
+			};
+		};
+		94B611752CEBD24E0017621A /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		94B6110E2CEA13E40017621A /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 94B6110D2CEA13E40017621A /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		94B611112CEA140B0017621A /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 94B611102CEA140B0017621A /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		94B611292CEA406F0017621A /* ProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 94B611282CEA406F0017621A /* XCRemoteSwiftPackageReference "ProgressHUD" */;
+			productName = ProgressHUD;
+		};
+		94B6112E2CEA430B0017621A /* SwiftKeychainWrapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 94B6112D2CEA430B0017621A /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
+			productName = SwiftKeychainWrapper;
+		};
+		94B611762CEBD24E0017621A /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 94B611752CEBD24E0017621A /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 94B60FBB2CE9D94A0017621A /* Project object */;
 }
